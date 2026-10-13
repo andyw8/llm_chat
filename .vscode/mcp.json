@@ -1,0 +1,12 @@
+{
+  "servers": {
+    "poetry": {
+      "type": "stdio",
+      "command": "bundle",
+      "args": [
+        "exec",
+        "poetry-agent"
+      ]
+    }
+  }
+}

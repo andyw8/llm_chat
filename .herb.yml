@@ -1,0 +1,16 @@
+# Herb toolchain configuration (linter / formatter / language server).
+# https://herb-tools.dev/configuration - written by `rails g poetry:editor`.
+version: 0.11.0
+
+framework: actionview
+
+linter:
+  enabled: true
+  rules:
+    # `<%= poetry_card do %><%= form_with ... %>` is flagged as a form nested
+    # in another form until marcoroth/herb#2708 lands.
+    html-no-nested-forms:
+      enabled: false
+
+formatter:
+  enabled: false

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "poetry": {
+      "command": "bundle",
+      "args": [
+        "exec",
+        "poetry-agent"
+      ]
+    }
+  }
+}
