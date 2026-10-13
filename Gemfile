@@ -65,3 +65,5 @@ end
 gem "ruby_llm", "~> 2.1"
 
 gem "poetry"
+# poetry:check parses ERB with herb (development only)
+gem "herb", group: :development
