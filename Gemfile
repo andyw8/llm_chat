@@ -63,3 +63,5 @@ group :test do
 end
 
 gem "ruby_llm", "~> 2.1"
+
+gem "poetry"
