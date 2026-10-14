@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Poetry::Ui::Engine => "/poetry" # llms.txt + llms-full.txt (agent-facing docs)
   resources :chats do
     resources :messages, only: [ :create ]
   end

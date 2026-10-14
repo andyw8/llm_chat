@@ -1,0 +1,698 @@
+{
+  "poetry accordion": {
+    "prefix": "poetry_accordion",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_accordion(heading_level: :${1|h2,h3,h4,h5,h6|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Accordion component"
+  },
+  "poetry alert": {
+    "prefix": "poetry_alert",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_alert(variant: :${1|default,destructive|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Alert component"
+  },
+  "poetry alert dialog": {
+    "prefix": "poetry_alert_dialog",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_alert_dialog(size: :${1|default,sm|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Alert Dialog component"
+  },
+  "poetry aspect ratio": {
+    "prefix": "poetry_aspect_ratio",
+    "scope": "erb",
+    "body": "<%= poetry_aspect_ratio %>$0",
+    "description": "poetry Aspect Ratio component"
+  },
+  "poetry attachment": {
+    "prefix": "poetry_attachment",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_attachment(orientation: :${1|horizontal,vertical|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Attachment component"
+  },
+  "poetry autocomplete": {
+    "prefix": "poetry_autocomplete",
+    "scope": "erb",
+    "body": "<%= poetry_autocomplete %>$0",
+    "description": "poetry Autocomplete component"
+  },
+  "poetry avatar": {
+    "prefix": "poetry_avatar",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_avatar(size: :${1|default,sm,lg|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Avatar component"
+  },
+  "poetry badge": {
+    "prefix": "poetry_badge",
+    "scope": "erb",
+    "body": "<%= poetry_badge(variant: :${1|default,secondary,destructive,outline,ghost,link,success,warning,info|}) %>$0",
+    "description": "poetry Badge component"
+  },
+  "poetry breadcrumb": {
+    "prefix": "poetry_breadcrumb",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_breadcrumb do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Breadcrumb component"
+  },
+  "poetry bubble": {
+    "prefix": "poetry_bubble",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_bubble(variant: :${1|default,secondary,muted,tinted,outline,ghost,destructive|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Bubble component"
+  },
+  "poetry button": {
+    "prefix": "poetry_button",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_button(variant: :${1|default,destructive,outline,secondary,ghost,link|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Button component"
+  },
+  "poetry button group": {
+    "prefix": "poetry_button_group",
+    "scope": "erb",
+    "body": "<%= poetry_button_group(orientation: :${1|horizontal,vertical|}) %>$0",
+    "description": "poetry Button Group component"
+  },
+  "poetry calendar": {
+    "prefix": "poetry_calendar",
+    "scope": "erb",
+    "body": "<%= poetry_calendar %>$0",
+    "description": "poetry Calendar component"
+  },
+  "poetry card": {
+    "prefix": "poetry_card",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_card(title_tag: :${1|h1,h2,h3,h4,h5,h6|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Card component"
+  },
+  "poetry carousel": {
+    "prefix": "poetry_carousel",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_carousel(orientation: :${1|horizontal,vertical|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Carousel component"
+  },
+  "poetry checkbox": {
+    "prefix": "poetry_checkbox",
+    "scope": "erb",
+    "body": "<%= poetry_checkbox %>$0",
+    "description": "poetry Checkbox component"
+  },
+  "poetry clipboard text": {
+    "prefix": "poetry_clipboard_text",
+    "scope": "erb",
+    "body": "<%= poetry_clipboard_text %>$0",
+    "description": "poetry Clipboard Text component"
+  },
+  "poetry code block": {
+    "prefix": "poetry_code_block",
+    "scope": "erb",
+    "body": "<%= poetry_code_block %>$0",
+    "description": "poetry Code Block component"
+  },
+  "poetry collapsible": {
+    "prefix": "poetry_collapsible",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_collapsible do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Collapsible component"
+  },
+  "poetry combobox": {
+    "prefix": "poetry_combobox",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_combobox(align: :${1|start,center,end|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Combobox component"
+  },
+  "poetry command": {
+    "prefix": "poetry_command",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_command do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Command component"
+  },
+  "poetry command dialog": {
+    "prefix": "poetry_command_dialog",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_command_dialog do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Command Dialog component"
+  },
+  "poetry context menu": {
+    "prefix": "poetry_context_menu",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_context_menu(dir: :${1|ltr,rtl|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Context Menu component"
+  },
+  "poetry data table": {
+    "prefix": "poetry_data_table",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_data_table do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Data Table component"
+  },
+  "poetry date field": {
+    "prefix": "poetry_date_field",
+    "scope": "erb",
+    "body": "<%= poetry_date_field %>$0",
+    "description": "poetry Date Field component"
+  },
+  "poetry date picker": {
+    "prefix": "poetry_date_picker",
+    "scope": "erb",
+    "body": "<%= poetry_date_picker %>$0",
+    "description": "poetry Date Picker component"
+  },
+  "poetry date time field": {
+    "prefix": "poetry_date_time_field",
+    "scope": "erb",
+    "body": "<%= poetry_date_time_field %>$0",
+    "description": "poetry Date Time Field component"
+  },
+  "poetry deferred": {
+    "prefix": "poetry_deferred",
+    "scope": "erb",
+    "body": "<%= poetry_deferred %>$0",
+    "description": "poetry Deferred component"
+  },
+  "poetry dialog": {
+    "prefix": "poetry_dialog",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_dialog do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Dialog component"
+  },
+  "poetry drawer": {
+    "prefix": "poetry_drawer",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_drawer(direction: :${1|down,up,left,right|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Drawer component"
+  },
+  "poetry dropdown menu": {
+    "prefix": "poetry_dropdown_menu",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_dropdown_menu(align: :${1|start,center,end|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Dropdown Menu component"
+  },
+  "poetry empty": {
+    "prefix": "poetry_empty",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_empty(media_variant: :${1|default,icon|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Empty component"
+  },
+  "poetry field": {
+    "prefix": "poetry_field",
+    "scope": "erb",
+    "body": "<%= poetry_field(orientation: :${1|vertical,horizontal,setting,responsive|}) %>$0",
+    "description": "poetry Field component"
+  },
+  "poetry field group": {
+    "prefix": "poetry_field_group",
+    "scope": "erb",
+    "body": "<%= poetry_field_group(variant: :${1|default,choices|}) %>$0",
+    "description": "poetry Field Group component"
+  },
+  "poetry field separator": {
+    "prefix": "poetry_field_separator",
+    "scope": "erb",
+    "body": "<%= poetry_field_separator %>$0",
+    "description": "poetry Field Separator component"
+  },
+  "poetry fieldset": {
+    "prefix": "poetry_fieldset",
+    "scope": "erb",
+    "body": "<%= poetry_fieldset(legend_variant: :${1|legend,label|}) %>$0",
+    "description": "poetry Fieldset component"
+  },
+  "poetry file input": {
+    "prefix": "poetry_file_input",
+    "scope": "erb",
+    "body": "<%= poetry_file_input(variant: :${1|input,dropzone|}) %>$0",
+    "description": "poetry File Input component"
+  },
+  "poetry hover card": {
+    "prefix": "poetry_hover_card",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_hover_card(align: :${1|start,center,end|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Hover Card component"
+  },
+  "poetry icon": {
+    "prefix": "poetry_icon",
+    "scope": "erb",
+    "body": "<%= poetry_icon %>$0",
+    "description": "poetry Icon component"
+  },
+  "poetry input": {
+    "prefix": "poetry_input",
+    "scope": "erb",
+    "body": "<%= poetry_input %>$0",
+    "description": "poetry Input component"
+  },
+  "poetry input group": {
+    "prefix": "poetry_input_group",
+    "scope": "erb",
+    "body": "<%= poetry_input_group %>$0",
+    "description": "poetry Input Group component"
+  },
+  "poetry input otp": {
+    "prefix": "poetry_input_otp",
+    "scope": "erb",
+    "body": "<%= poetry_input_otp %>$0",
+    "description": "poetry Input Otp component"
+  },
+  "poetry item": {
+    "prefix": "poetry_item",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_item(variant: :${1|default,outline,muted|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Item component"
+  },
+  "poetry kbd": {
+    "prefix": "poetry_kbd",
+    "scope": "erb",
+    "body": "<%= poetry_kbd %>$0",
+    "description": "poetry Kbd component"
+  },
+  "poetry label": {
+    "prefix": "poetry_label",
+    "scope": "erb",
+    "body": "<%= poetry_label %>$0",
+    "description": "poetry Label component"
+  },
+  "poetry link": {
+    "prefix": "poetry_link",
+    "scope": "erb",
+    "body": "<%= poetry_link(underline: :${1|hover,always,none|}) %>$0",
+    "description": "poetry Link component"
+  },
+  "poetry marker": {
+    "prefix": "poetry_marker",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_marker(variant: :${1|default,separator,border|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Marker component"
+  },
+  "poetry menubar": {
+    "prefix": "poetry_menubar",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_menubar(dir: :${1|ltr,rtl|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Menubar component"
+  },
+  "poetry message": {
+    "prefix": "poetry_message",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_message(align: :${1|start,end|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Message component"
+  },
+  "poetry message scroller": {
+    "prefix": "poetry_message_scroller",
+    "scope": "erb",
+    "body": "<%= poetry_message_scroller(default_scroll_position: :${1|start,end,last-anchor|}) %>$0",
+    "description": "poetry Message Scroller component"
+  },
+  "poetry metadata list": {
+    "prefix": "poetry_metadata_list",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_metadata_list(columns: :${1|one,two,three|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Metadata List component"
+  },
+  "poetry meter": {
+    "prefix": "poetry_meter",
+    "scope": "erb",
+    "body": "<%= poetry_meter %>$0",
+    "description": "poetry Meter component"
+  },
+  "poetry native select": {
+    "prefix": "poetry_native_select",
+    "scope": "erb",
+    "body": "<%= poetry_native_select(size: :${1|default,sm|}) %>$0",
+    "description": "poetry Native Select component"
+  },
+  "poetry navigation menu": {
+    "prefix": "poetry_navigation_menu",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_navigation_menu do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Navigation Menu component"
+  },
+  "poetry number field": {
+    "prefix": "poetry_number_field",
+    "scope": "erb",
+    "body": "<%= poetry_number_field %>$0",
+    "description": "poetry Number Field component"
+  },
+  "poetry pagination": {
+    "prefix": "poetry_pagination",
+    "scope": "erb",
+    "body": "<%= poetry_pagination(current_variant: :${1|outline,filled|}) %>$0",
+    "description": "poetry Pagination component"
+  },
+  "poetry popover": {
+    "prefix": "poetry_popover",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_popover(align: :${1|start,center,end|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Popover component"
+  },
+  "poetry progress": {
+    "prefix": "poetry_progress",
+    "scope": "erb",
+    "body": "<%= poetry_progress %>$0",
+    "description": "poetry Progress component"
+  },
+  "poetry questionnaire": {
+    "prefix": "poetry_questionnaire",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_questionnaire(shortcuts: :${1|letters,numbers|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Questionnaire component"
+  },
+  "poetry radio group": {
+    "prefix": "poetry_radio_group",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_radio_group(orientation: :${1|both,vertical,horizontal|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Radio Group component"
+  },
+  "poetry resizable": {
+    "prefix": "poetry_resizable",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_resizable(direction: :${1|horizontal,vertical|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Resizable component"
+  },
+  "poetry scroll area": {
+    "prefix": "poetry_scroll_area",
+    "scope": "erb",
+    "body": "<%= poetry_scroll_area %>$0",
+    "description": "poetry Scroll Area component"
+  },
+  "poetry search field": {
+    "prefix": "poetry_search_field",
+    "scope": "erb",
+    "body": "<%= poetry_search_field %>$0",
+    "description": "poetry Search Field component"
+  },
+  "poetry select": {
+    "prefix": "poetry_select",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_select(align: :${1|start,center,end|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Select component"
+  },
+  "poetry sensitive input": {
+    "prefix": "poetry_sensitive_input",
+    "scope": "erb",
+    "body": "<%= poetry_sensitive_input %>$0",
+    "description": "poetry Sensitive Input component"
+  },
+  "poetry separator": {
+    "prefix": "poetry_separator",
+    "scope": "erb",
+    "body": "<%= poetry_separator(orientation: :${1|horizontal,vertical|}) %>$0",
+    "description": "poetry Separator component"
+  },
+  "poetry sheet": {
+    "prefix": "poetry_sheet",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_sheet(side: :${1|top,right,bottom,left|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Sheet component"
+  },
+  "poetry sidebar": {
+    "prefix": "poetry_sidebar",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_sidebar(variant: :${1|sidebar,floating,inset|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Sidebar component"
+  },
+  "poetry skeleton": {
+    "prefix": "poetry_skeleton",
+    "scope": "erb",
+    "body": "<%= poetry_skeleton %>$0",
+    "description": "poetry Skeleton component"
+  },
+  "poetry slider": {
+    "prefix": "poetry_slider",
+    "scope": "erb",
+    "body": "<%= poetry_slider(orientation: :${1|horizontal,vertical|}) %>$0",
+    "description": "poetry Slider component"
+  },
+  "poetry spinner": {
+    "prefix": "poetry_spinner",
+    "scope": "erb",
+    "body": "<%= poetry_spinner %>$0",
+    "description": "poetry Spinner component"
+  },
+  "poetry stat": {
+    "prefix": "poetry_stat",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_stat(sentiment: :${1|positive,negative,neutral|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Stat component"
+  },
+  "poetry switch": {
+    "prefix": "poetry_switch",
+    "scope": "erb",
+    "body": "<%= poetry_switch(size: :${1|default,sm|}) %>$0",
+    "description": "poetry Switch component"
+  },
+  "poetry table": {
+    "prefix": "poetry_table",
+    "scope": "erb",
+    "body": "<%= poetry_table %>$0",
+    "description": "poetry Table component"
+  },
+  "poetry tabs": {
+    "prefix": "poetry_tabs",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_tabs(variant: :${1|default,line|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Tabs component"
+  },
+  "poetry tag group": {
+    "prefix": "poetry_tag_group",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_tag_group do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Tag Group component"
+  },
+  "poetry textarea": {
+    "prefix": "poetry_textarea",
+    "scope": "erb",
+    "body": "<%= poetry_textarea %>$0",
+    "description": "poetry Textarea component"
+  },
+  "poetry time field": {
+    "prefix": "poetry_time_field",
+    "scope": "erb",
+    "body": "<%= poetry_time_field %>$0",
+    "description": "poetry Time Field component"
+  },
+  "poetry timeline": {
+    "prefix": "poetry_timeline",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_timeline(orientation: :${1|vertical,horizontal|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Timeline component"
+  },
+  "poetry toast": {
+    "prefix": "poetry_toast",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_toast(variant: :${1|default,success,info,warning,destructive,loading|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Toast component"
+  },
+  "poetry toast trigger": {
+    "prefix": "poetry_toast_trigger",
+    "scope": "erb",
+    "body": "<%= poetry_toast_trigger %>$0",
+    "description": "poetry Toast Trigger component"
+  },
+  "poetry toaster": {
+    "prefix": "poetry_toaster",
+    "scope": "erb",
+    "body": "<%= poetry_toaster(position: :${1|top-left,top-center,top-right,bottom-left,bottom-center,bottom-right|}) %>$0",
+    "description": "poetry Toaster component"
+  },
+  "poetry toggle": {
+    "prefix": "poetry_toggle",
+    "scope": "erb",
+    "body": "<%= poetry_toggle(variant: :${1|default,outline|}) %>$0",
+    "description": "poetry Toggle component"
+  },
+  "poetry toggle group": {
+    "prefix": "poetry_toggle_group",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_toggle_group(variant: :${1|default,outline|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Toggle Group component"
+  },
+  "poetry toolbar": {
+    "prefix": "poetry_toolbar",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_toolbar(orientation: :${1|horizontal,vertical|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Toolbar component"
+  },
+  "poetry tooltip": {
+    "prefix": "poetry_tooltip",
+    "scope": "erb",
+    "body": [
+      "<%= poetry_tooltip(align: :${1|start,center,end|}) do |c| %>",
+      "\t$0",
+      "<% end %>"
+    ],
+    "description": "poetry Tooltip component"
+  },
+  "poetry tree": {
+    "prefix": "poetry_tree",
+    "scope": "erb",
+    "body": "<%= poetry_tree %>$0",
+    "description": "poetry Tree component"
+  },
+  "poetry typeset": {
+    "prefix": "poetry_typeset",
+    "scope": "erb",
+    "body": "<%= poetry_typeset %>$0",
+    "description": "poetry Typeset component"
+  }
+}
