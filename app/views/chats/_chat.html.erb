@@ -1,7 +1,0 @@
-<div id="<%= dom_id chat %>" class="w-full sm:w-auto my-5">
-  <%= poetry_metadata_list(orientation: :horizontal) do |list| %>
-    <% list.with_item(label: "Model") { chat.model&.label || default_model_display_name } %>
-    <% list.with_item(label: "Messages") { chat.messages.count } %>
-    <% list.with_item(label: "Created") { chat.created_at.strftime("%B %d, %Y at %I:%M %p") } %>
-  <% end %>
-</div>

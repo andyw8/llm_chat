@@ -1,8 +1,10 @@
 class ChatsController < ApplicationController
+  layout "chats"
+
   before_action :set_chat, only: [ :show, :destroy ]
+  before_action :load_chats, only: [ :index, :show, :new ]
 
   def index
-    @chats = Chat.order(created_at: :desc)
   end
 
   def new
@@ -39,6 +41,10 @@ class ChatsController < ApplicationController
   end
 
   private
+
+  def load_chats
+    @chats = Chat.includes(:messages).order(created_at: :desc)
+  end
 
   def set_chat
     @chat = Chat.find(params[:id])

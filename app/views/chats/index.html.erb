@@ -1,35 +1,12 @@
 <% content_for :title, "Chats" %>
 
-<div class="w-full">
-  <% if notice.present? %>
-    <%= poetry_alert(id: "notice") { notice } %>
-  <% end %>
-
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Chats</h1>
-    <div class="flex items-center gap-2">
-      <%= poetry_button(tag: :a, href: new_chat_path) { "New chat" } %>
-    </div>
-  </div>
-
-  <div id="chats" class="min-w-full space-y-5">
-    <% if @chats.any? %>
-      <% @chats.each do |chat| %>
-        <div class="flex flex-col sm:flex-row justify-between items-center pb-5 sm:pb-0">
-          <%= render chat %>
-          <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
-            <%= poetry_button(tag: :a, href: chat_path(chat), variant: :secondary, size: :sm, class: "w-full sm:w-auto") { "Show" } %>
-            <%= form_with url: chat_path(chat), method: :delete, data: { turbo_confirm: "Are you sure?" } do %>
-              <%= poetry_button(type: :submit, variant: :destructive, size: :sm, class: "w-full sm:w-auto") { "Destroy" } %>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-    <% else %>
-      <%= poetry_empty(title_tag: :h2, class: "my-10") do |empty| %>
-        <% empty.with_title { "No chats found" } %>
-        <% empty.with_description { "Start a new chat to get going." } %>
-      <% end %>
+<%= turbo_frame_tag "chat", class: "flex min-h-0 flex-1 flex-col" do %>
+  <div class="flex flex-1 flex-col items-center justify-center gap-6 p-6">
+    <%= poetry_empty(media_variant: :icon, title_tag: :h2) do |empty| %>
+      <% empty.with_media { poetry_icon(name: :"message-square", class: "size-6") } %>
+      <% empty.with_title { "No chat selected" } %>
+      <% empty.with_description { "Pick a chat from the sidebar, or start a new one." } %>
     <% end %>
+    <%= poetry_button(tag: :a, href: new_chat_path, data: { turbo_frame: "chat", turbo_action: "advance" }) { "New chat" } %>
   </div>
-</div>
+<% end %>
