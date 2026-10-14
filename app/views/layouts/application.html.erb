@@ -10,10 +10,7 @@
         <%= poetry_link(href: root_path, underline: :none, class: "inline-flex items-center gap-2 text-sm font-semibold") do %>
           <%= poetry_icon(name: :sparkles, class: "size-4") %> Ruby LLM Chat
         <% end %>
-        <%= poetry_navigation_menu(label: "Main") do |nav| %>
-          <% nav.with_link("Models", href: models_path, active: current_page?(models_path)) %>
-          <% nav.with_link("Chats", href: chats_path, active: current_page?(chats_path)) %>
-        <% end %>
+        <%= render "layouts/nav_links" %>
       </div>
     </header>
 
