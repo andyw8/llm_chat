@@ -5,27 +5,29 @@
   </head>
 
   <body>
-    <%= poetry_sidebar(open: cookies[:sidebar_state] != "false", collapsible: :icon, class: "h-svh overflow-hidden") do |shell| %>
-      <% shell.with_nav do %>
-        <%= render "chats/sidebar", chats: @chats, current_chat: @chat %>
-      <% end %>
+    <div class="flex h-svh w-full overflow-hidden">
+      <%= poetry_sidebar(open: cookies[:sidebar_state] != "false", collapsible: :icon) do |shell| %>
+        <% shell.with_nav do %>
+          <%= render "chats/sidebar", chats: @chats, current_chat: @chat %>
+        <% end %>
 
-      <% shell.with_inset do %>
-        <header class="flex h-14 shrink-0 items-center gap-2 border-b px-4">
-          <%= poetry_sidebar_trigger %>
-          <%= poetry_separator(orientation: :vertical, class: "h-4") %>
-          <span class="truncate text-sm font-medium">
-            <%= action_name == "new" ? "New chat" : "Chats" %>
-          </span>
-          <div class="ml-auto">
-            <%= render "layouts/nav_links" %>
+        <% shell.with_inset do %>
+          <header class="flex h-14 shrink-0 items-center gap-2 border-b px-4">
+            <%= poetry_sidebar_trigger %>
+            <%= poetry_separator(orientation: :vertical, class: "h-4") %>
+            <span class="truncate text-sm font-medium">
+              <%= action_name == "new" ? "New chat" : "Chats" %>
+            </span>
+            <div class="ml-auto">
+              <%= render "layouts/nav_links" %>
+            </div>
+          </header>
+
+          <div class="flex min-h-0 flex-1 flex-col">
+            <%= yield %>
           </div>
-        </header>
-
-        <div class="flex min-h-0 flex-1 flex-col">
-          <%= yield %>
-        </div>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </body>
 </html>

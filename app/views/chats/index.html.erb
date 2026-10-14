@@ -7,6 +7,6 @@
       <% empty.with_title { "No chat selected" } %>
       <% empty.with_description { "Pick a chat from the sidebar, or start a new one." } %>
     <% end %>
-    <%= poetry_button(tag: :a, href: new_chat_path, data: { turbo_frame: "chat", turbo_action: "advance" }) { "New chat" } %>
+    <%= poetry_button(tag: :a, href: new_chat_path) { "New chat" } %>
   </div>
 <% end %>

@@ -22,7 +22,7 @@
           <%= poetry_sidebar_menu_button(
                 href: new_chat_path,
                 active: action_name == "new",
-                data: { turbo_frame: "chat", turbo_action: "advance", chat_nav_target: "item", action: "click->chat-nav#select" }
+                data: { turbo_frame: "chat", chat_nav_target: "item", action: "click->chat-nav#select" }
               ) do %>
             <%= poetry_icon(name: :plus) %><span>New chat</span>
           <% end %>
@@ -39,7 +39,7 @@
               <%= poetry_sidebar_menu_button(
                     href: chat_path(chat),
                     active: current_chat && chat.id == current_chat.id,
-                    data: { turbo_frame: "chat", turbo_action: "advance", chat_nav_target: "item", action: "click->chat-nav#select" }
+                    data: { turbo_frame: "chat", chat_nav_target: "item", action: "click->chat-nav#select" }
                   ) do %>
                 <%= poetry_icon(name: :"message-square") %><span><%= chat.title %></span>
               <% end %>
