@@ -1,0 +1,59 @@
+<%= poetry_sidebar_header do %>
+  <%= poetry_sidebar_menu do %>
+    <%= poetry_sidebar_menu_item do %>
+      <%= poetry_sidebar_menu_button(href: root_path, size: :lg) do %>
+        <div class="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+          <%= poetry_icon(name: :sparkles, class: "size-4") %>
+        </div>
+        <div class="grid flex-1 text-left text-sm leading-tight">
+          <span class="truncate font-semibold">Ruby LLM Chat</span>
+          <span class="truncate text-xs">Chats</span>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= poetry_sidebar_content do %>
+  <div data-controller="chat-nav">
+    <%= poetry_sidebar_group do %>
+      <%= poetry_sidebar_menu do %>
+        <%= poetry_sidebar_menu_item do %>
+          <%= poetry_sidebar_menu_button(
+                href: new_chat_path,
+                active: action_name == "new",
+                data: { turbo_frame: "chat", chat_nav_target: "item", action: "click->chat-nav#select" }
+              ) do %>
+            <%= poetry_icon(name: :plus) %><span>New chat</span>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <%= poetry_sidebar_group do %>
+      <%= poetry_sidebar_group_label { "Chats" } %>
+      <%= poetry_sidebar_menu do %>
+        <% if chats.any? %>
+          <% chats.each do |chat| %>
+            <%= poetry_sidebar_menu_item(id: dom_id(chat)) do %>
+              <%= poetry_sidebar_menu_button(
+                    href: chat_path(chat),
+                    active: current_chat && chat.id == current_chat.id,
+                    data: { turbo_frame: "chat", chat_nav_target: "item", action: "click->chat-nav#select" }
+                  ) do %>
+                <%= poetry_icon(name: :"message-square") %><span><%= chat.title %></span>
+              <% end %>
+              <%= poetry_sidebar_menu_badge(id: dom_id(chat, :message_count)) { chat.messages.size } %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <%= poetry_sidebar_menu_item do %>
+            <span class="px-2 py-1.5 text-xs text-muted-foreground">No chats yet</span>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+
+<%= poetry_sidebar_rail %>
