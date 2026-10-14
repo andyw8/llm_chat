@@ -25,7 +25,19 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <header class="w-full border-b">
+      <div class="mx-auto flex h-14 max-w-5xl items-center justify-between gap-6 px-5">
+        <%= poetry_link(href: root_path, underline: :none, class: "inline-flex items-center gap-2 text-sm font-semibold") do %>
+          <%= poetry_icon(name: :sparkles, class: "size-4") %> Ruby LLM Chat
+        <% end %>
+        <%= poetry_navigation_menu(label: "Main") do |nav| %>
+          <% nav.with_link("Models", href: models_path, active: current_page?(models_path)) %>
+          <% nav.with_link("Chats", href: chats_path, active: current_page?(chats_path)) %>
+        <% end %>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-5 py-8 flex">
       <%= yield %>
     </main>
   </body>
