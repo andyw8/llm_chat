@@ -1,23 +1,10 @@
-<%= form_with(model: message, url: [@chat, message], id: "new_message", class: "contents") do |form| %>
-  <% if message.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(message.errors.count, "error") %> prohibited this message from being saved:</h2>
+<%= form_with(model: message, url: [@chat, message], id: "new_message", builder: Poetry::Ui::FormBuilder) do |form| %>
+  <%= form.input :content,
+      as: :text,
+      rows: 4,
+      placeholder: "Message...",
+      autofocus: true,
+      label: "Message" %>
 
-      <ul class="list-disc ml-6">
-        <% message.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="my-5">
-    <%= form.label :content, "Message" %>
-    <%= form.text_area :content, rows: 4, placeholder: "Message...", autofocus: true,
-        class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": message.errors[:content].none?, "border-red-400 focus:outline-red-600": message.errors[:content].any?}] %>
-  </div>
-
-  <div class="inline">
-    <%= poetry_button(type: :submit) { "Send message" } %>
-  </div>
+  <%= form.submit "Send message" %>
 <% end %>

@@ -2,25 +2,29 @@
 
 <div class="md:w-2/3 w-full">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+    <%= poetry_alert(id: "notice") { notice } %>
   <% end %>
 
   <h1 class="font-bold text-4xl">Showing model</h1>
 
-  <div class="my-5 space-y-3">
-    <p><strong class="block font-medium mb-1">Provider:</strong> <%= @model.provider_class&.name || @model.provider %></p>
-    <p><strong class="block font-medium mb-1">Model:</strong> <%= @model.name %></p>
-    <p><strong class="block font-medium mb-1">ID:</strong> <%= @model.id %></p>
-    <p><strong class="block font-medium mb-1">Context Window:</strong> <%= number_with_delimiter(@model.context_window) if @model.context_window %></p>
-    <p><strong class="block font-medium mb-1">Max Output Tokens:</strong> <%= number_with_delimiter(@model.max_output_tokens) if @model.max_output_tokens %></p>
+  <div class="my-5">
+    <%= poetry_metadata_list(columns: :two) do |list| %>
+      <% list.with_item(label: "Provider") { @model.provider_class&.name || @model.provider } %>
+      <% list.with_item(label: "Model") { @model.name } %>
+      <% list.with_item(label: "ID") { @model.id } %>
+      <% list.with_item(label: "Context Window") { number_with_delimiter(@model.context_window) if @model.context_window } %>
+      <% list.with_item(label: "Max Output Tokens") { number_with_delimiter(@model.max_output_tokens) if @model.max_output_tokens } %>
+      <% if @model.capabilities.any? %>
+        <% list.with_item(label: "Capabilities") do %>
+          <div class="flex flex-wrap gap-2">
+            <% @model.capabilities.each do |capability| %>
+              <%= poetry_badge(variant: :secondary) { capability.to_s } %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
   </div>
-
-  <% if @model.capabilities.any? %>
-    <div class="my-5">
-      <strong class="block font-medium mb-1">Capabilities:</strong>
-      <%= @model.capabilities.join(", ") %>
-    </div>
-  <% end %>
 
   <%= poetry_button(tag: :a, href: new_chat_path(model: [@model.provider, @model.id].join(":")), variant: :secondary, class: "w-full sm:w-auto") { "Start chat with this model" } %>
   <%= poetry_button(tag: :a, href: models_path, variant: :secondary, class: "w-full sm:w-auto mt-2 sm:mt-0 sm:ml-2") { "All models" } %>
