@@ -1,31 +1,18 @@
-<%= form_with(model: chat, url: chats_path, class: "contents") do |form| %>
-  <% if chat.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(chat.errors.count, "error") %> prohibited this chat from being saved:</h2>
+<%= form_with(model: chat, url: chats_path, builder: Poetry::Ui::FormBuilder) do |form| %>
+  <%= form.group do |fields| %>
+    <%= fields.input :model,
+        as: :select,
+        collection: @chat_models.map { |model| [model.label, [model.provider, model.id].join(":")] },
+        include_blank: default_model_display_name,
+        value: @selected_model,
+        label: "Select AI model" %>
 
-      <ul class="list-disc ml-6">
-        <% chat.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
+    <%= fields.input :prompt,
+        as: :text,
+        rows: 4,
+        placeholder: "What would you like to discuss?",
+        autofocus: true %>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :model, "Select AI model:" %>
-    <%= form.select :model,
-        options_for_select(@chat_models.map { |model| [model.label, [model.provider, model.id].join(":")] }.unshift([default_model_display_name, nil]), @selected_model),
-        {},
-        class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": chat.errors[:model].none?, "border-red-400 focus:outline-red-600": chat.errors[:model].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :prompt, "Prompt" %>
-    <%= form.text_area :prompt, rows: 4, placeholder: "What would you like to discuss?", autofocus: true,
-        class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": chat.errors[:prompt].none?, "border-red-400 focus:outline-red-600": chat.errors[:prompt].any?}] %>
-  </div>
-
-  <div class="inline">
-    <%= poetry_button(type: :submit) { "Start new chat" } %>
-  </div>
+  <%= form.submit "Start new chat" %>
 <% end %>

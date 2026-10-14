@@ -2,7 +2,7 @@
 
 <div class="w-full">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+    <%= poetry_alert(id: "notice") { notice } %>
   <% end %>
 
   <div class="flex justify-between items-center">
@@ -15,28 +15,29 @@
     </div>
   </div>
 
-  <div id="models" class="mt-5 overflow-x-auto">
+  <div id="models" class="mt-5">
     <% if @models.any? %>
-      <table class="min-w-full divide-y divide-gray-300 border border-gray-300">
-        <thead class="bg-gray-50">
-          <tr>
-            <th class="px-3 py-2 text-left text-sm font-semibold text-gray-900">Provider</th>
-            <th class="px-3 py-2 text-left text-sm font-semibold text-gray-900">Model</th>
-            <th class="px-3 py-2 text-left text-sm font-semibold text-gray-900">Context Window</th>
-            <th class="px-3 py-2 text-left text-sm font-semibold text-gray-900">$/1M tokens (In/Out)</th>
-            <th class="px-3 py-2 text-left text-sm font-semibold text-gray-900"></th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-200 bg-white">
-          <% @models.each do |model_info| %>
-            <%= render "models/model",
-              model: model_info %>
+      <%= poetry_table do %>
+        <%= poetry_table_header do %>
+          <%= poetry_table_row do %>
+            <%= poetry_table_head { "Provider" } %>
+            <%= poetry_table_head { "Model" } %>
+            <%= poetry_table_head { "Context Window" } %>
+            <%= poetry_table_head { "$/1M tokens (In/Out)" } %>
+            <%= poetry_table_head { "" } %>
           <% end %>
-        </tbody>
-      </table>
+        <% end %>
+        <%= poetry_table_body do %>
+          <% @models.each do |model_info| %>
+            <%= render "models/model", model: model_info %>
+          <% end %>
+        <% end %>
+      <% end %>
     <% else %>
-      <p class="text-center my-10">No chat models found.</p>
+      <%= poetry_empty(title_tag: :h2, class: "my-10") do |empty| %>
+        <% empty.with_title { "No chat models found" } %>
+        <% empty.with_description { "Refresh models to fetch the latest list." } %>
+      <% end %>
     <% end %>
   </div>
-
 </div>

@@ -2,7 +2,7 @@
 
 <div class="w-full">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+    <%= poetry_alert(id: "notice") { notice } %>
   <% end %>
 
   <div class="flex justify-between items-center">
@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <div id="chats" class="min-w-full divide-y divide-gray-200 space-y-5">
+  <div id="chats" class="min-w-full space-y-5">
     <% if @chats.any? %>
       <% @chats.each do |chat| %>
         <div class="flex flex-col sm:flex-row justify-between items-center pb-5 sm:pb-0">
@@ -27,7 +27,10 @@
         </div>
       <% end %>
     <% else %>
-      <p class="text-center my-10">No chats found.</p>
+      <%= poetry_empty(title_tag: :h2, class: "my-10") do |empty| %>
+        <% empty.with_title { "No chats found" } %>
+        <% empty.with_description { "Start a new chat to get going." } %>
+      <% end %>
     <% end %>
   </div>
 </div>
