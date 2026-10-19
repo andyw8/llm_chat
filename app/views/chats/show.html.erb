@@ -3,17 +3,11 @@
 <%= turbo_stream_from "chat_#{@chat.id}" %>
 
 <%= turbo_frame_tag "chat", class: "flex min-h-0 flex-1 flex-col" do %>
-  <div class="flex shrink-0 items-center justify-between gap-4 border-b px-4 py-3">
+  <div class="flex shrink-0 items-center gap-4 border-b px-4 py-3">
     <div class="min-w-0">
       <h1 class="truncate text-sm font-semibold"><%= @chat.title %></h1>
       <p class="truncate text-xs text-muted-foreground"><%= @chat.model&.label || default_model_display_name %></p>
     </div>
-    <%= form_with url: chat_path(@chat), method: :delete, data: { turbo_confirm: "Delete this chat?" } do %>
-      <%= poetry_button(type: :submit, variant: :destructive, size: :sm) do |button| %>
-        <% button.with_leading { poetry_icon(name: :trash) } %>
-        Delete
-      <% end %>
-    <% end %>
   </div>
 
   <% if notice.present? %>

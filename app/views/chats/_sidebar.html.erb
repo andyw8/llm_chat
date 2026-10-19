@@ -43,7 +43,19 @@
                   ) do %>
                 <%= poetry_icon(name: :"message-square") %><span><%= chat.title %></span>
               <% end %>
-              <%= poetry_sidebar_menu_badge(id: dom_id(chat, :message_count)) { chat.messages.size } %>
+              <%= poetry_sidebar_menu_badge(
+                    id: dom_id(chat, :message_count),
+                    class: "hidden md:flex transition-opacity group-hover/menu-item:opacity-0"
+                  ) { chat.messages.size } %>
+              <%= form_with url: chat_path(chat), method: :delete, class: "contents",
+                    data: { turbo_confirm: "Delete this chat?" } do %>
+                <%= poetry_sidebar_menu_action(
+                      label: "Delete chat", show_on_hover: true, type: :submit,
+                      class: "hover:text-destructive"
+                    ) do %>
+                  <%= poetry_icon(name: :trash) %>
+                <% end %>
+              <% end %>
             <% end %>
           <% end %>
         <% else %>
