@@ -3,6 +3,18 @@ module MessagesHelper
     "Default: #{RubyLLM.models.find(RubyLLM.config.default_model).label}"
   end
 
+  # Server-rendered time is the no-JS fallback; the Stimulus controller
+  # rewrites it in the reader's own timezone.
+  def local_time_tag(time)
+    return unless time
+
+    tag.time(
+      time.strftime("%I:%M %p"),
+      datetime: time.iso8601,
+      data: { controller: "local-time" }
+    )
+  end
+
   def tool_result_partial(message)
     name = message.respond_to?(:parent_tool_call) ? message.parent_tool_call&.name.to_s : ""
     partial_for(prefix: "messages/tool_results", name: name)
