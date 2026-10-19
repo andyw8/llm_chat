@@ -96,3 +96,8 @@
   kit's own `cn-*` classes are the app's, not overrides - prefix them
   (`cn-acme-*`) and never declare them.
 <!-- poetry:agents:end -->
+
+## Local verification
+
+Use https://try_ruby_llm_2_chat.test to verify changes locally - it is
+served by puma-dev.
