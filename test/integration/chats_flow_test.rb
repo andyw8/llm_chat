@@ -18,6 +18,11 @@ class ChatsFlowTest < ActionDispatch::IntegrationTest
     @chat = Chat.create!(model: @model)
     @user_message = @chat.messages.create!(role: "user", content: "Hello from the user")
     @assistant_message = @chat.messages.create!(role: "assistant", content: "Hello from the assistant")
+    @usage = RubyLLM::ActiveRecord::Usage.create!(
+      chat: @chat, message: @assistant_message, operation: "chat", provider: "test",
+      model: "test-model", status: "succeeded",
+      input_tokens: 1_200, output_tokens: 340, thinking_tokens: 60, total_cost: 0.000123
+    )
   end
 
   teardown do
@@ -71,6 +76,37 @@ class ChatsFlowTest < ActionDispatch::IntegrationTest
     assert_turbo_stream action: "remove", target: ActionView::RecordIdentifier.dom_id(@assistant_message)
     assert_not Message.exists?(@assistant_message.id)
     assert Message.exists?(@user_message.id)
+  end
+
+  test "show renders each reply's cost and the chat's usage in the settings sheet" do
+    get chat_url(@chat)
+
+    assert_response :success
+    assert_select "##{ActionView::RecordIdentifier.dom_id(@assistant_message)}", text: /\$0\.000123/
+    assert_select "##{ActionView::RecordIdentifier.dom_id(@user_message)}", text: /\$0\.000123/, count: 0
+
+    assert_select "#chat-usage p" do |usage|
+      text = usage.text.squish
+      assert_includes text, "$0.000123 across 1 request"
+      assert_includes text, "1,200 in"
+      assert_includes text, "340 out"
+      assert_includes text, "60 thinking"
+    end
+  end
+
+  test "usage reads as unknown rather than free when the provider published no pricing" do
+    chat = Chat.create!(model: @model)
+    reply = chat.messages.create!(role: "assistant", content: "Unpriced reply")
+    RubyLLM::ActiveRecord::Usage.create!(
+      chat: chat, message: reply, operation: "chat", provider: "test",
+      model: "test-model", status: "succeeded", input_tokens: 10, output_tokens: 5
+    )
+
+    get chat_url(chat)
+
+    assert_response :success
+    assert_select "##{ActionView::RecordIdentifier.dom_id(reply)}", text: /\$/, count: 0
+    assert_select "#chat-usage p", text: /— across 1 request/
   end
 
   test "destroy only reaches the messages of the chat in the URL" do
