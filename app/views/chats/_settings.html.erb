@@ -48,12 +48,14 @@
           hint: "Higher effort spends more reasoning tokens. Leave blank to use the model's default." %>
     <% end %>
 
-    <%= form.input :sampling_temperature,
-        label: "Temperature",
-        min: 0,
-        max: 2,
-        step: 0.1,
-        hint: "Between 0 and 2. Leave blank to use the model's default." %>
+    <% if chat.supports_temperature? %>
+      <%= form.input :sampling_temperature,
+          label: "Temperature",
+          min: 0,
+          max: 2,
+          step: 0.1,
+          hint: "Between 0 and 2. Leave blank to use the model's default." %>
+    <% end %>
   <% end %>
 
   <% sheet.with_footer do %>

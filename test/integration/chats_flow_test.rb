@@ -70,6 +70,20 @@ class ChatsFlowTest < ActionDispatch::IntegrationTest
     assert_in_delta 0.4, @chat.sampling_temperature
   end
 
+  test "temperature is hidden and cleared for models that do not support it" do
+    @model.update!(metadata: @model.metadata.merge("temperature" => false))
+    @chat.update_columns(sampling_temperature: 0.7)
+
+    get chat_url(@chat)
+    assert_response :success
+    assert_select "input[name=?]", "chat[sampling_temperature]", count: 0
+
+    patch chat_url(@chat), params: { chat: { sampling_temperature: "0.9" } }
+    assert_redirected_to chat_url(@chat)
+
+    assert_nil @chat.reload.sampling_temperature
+  end
+
   test "update clears settings when the fields are blank" do
     @chat.update!(
       custom_title: "Project kickoff",
