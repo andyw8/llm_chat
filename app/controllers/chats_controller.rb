@@ -9,26 +9,15 @@ class ChatsController < ApplicationController
 
   def new
     @chat = Chat.new
-    @selected_model = params[:provider] ? [ params[:provider], params[:model] ].join(":") : params[:model]
-    @chat_models = available_chat_models
+    @chat_models = ModelCatalog.available
+    @selected_model = selected_chat_model
   end
 
   def create
-    prompt = params.dig(:chat, :prompt)
-    if prompt.present?
-      provider, model = params.dig(:chat, :model).to_s.split(":", 2)
-      @chat = Chat.create!(model: model.presence, provider: provider.presence)
-      ChatResponseJob.perform_later(@chat.id, prompt)
+    provider, model = params.dig(:chat, :model).to_s.split(":", 2)
+    @chat = Chat.create!(model: model.presence, provider: provider.presence)
 
-      redirect_to @chat, notice: "Chat was successfully created."
-    else
-      @chat = Chat.new
-      @chat.errors.add(:prompt, "can't be blank")
-      @selected_model = params.dig(:chat, :model)
-      @chat_models = available_chat_models
-
-      render :new, status: :unprocessable_content
-    end
+    redirect_to @chat, notice: "Chat was successfully created."
   end
 
   def show
@@ -41,6 +30,13 @@ class ChatsController < ApplicationController
   end
 
   private
+
+  def selected_chat_model
+    requested = params[:provider] ? [ params[:provider], params[:model] ].join(":") : params[:model]
+    return requested if @chat_models.any? { |model| ModelCatalog.option_value(model) == requested }
+
+    ModelCatalog.default_model_option || @chat_models.first&.then { |model| ModelCatalog.option_value(model) }
+  end
 
   def load_chats
     @chats = Chat.includes(:messages).order(created_at: :desc)

@@ -1,18 +1,21 @@
-<%= form_with(model: chat, url: chats_path, builder: Poetry::Ui::FormBuilder) do |form| %>
-  <%= form.group do |fields| %>
-    <%= fields.input :model,
-        as: :select,
-        collection: @chat_models.map { |model| [model.label, [model.provider, model.id].join(":")] },
-        include_blank: default_model_display_name,
-        value: @selected_model,
-        label: "Select AI model" %>
+<%# A full-page visit so the sidebar re-renders with the new chat and the URL moves to it. %>
+<%= form_with(model: chat, url: chats_path, builder: Poetry::Ui::FormBuilder, data: { turbo_frame: "_top" }) do |form| %>
+  <% if @chat_models.any? %>
+    <%= form.group do |fields| %>
+      <%= fields.input :model,
+          as: :select,
+          collection: @chat_models.map { |model| [ model.label, ModelCatalog.option_value(model) ] },
+          include_blank: ModelCatalog.default_model_available? ? default_model_display_name : false,
+          value: @selected_model,
+          autofocus: true,
+          label: "Select AI model" %>
+    <% end %>
 
-    <%= fields.input :prompt,
-        as: :text,
-        rows: 4,
-        placeholder: "What would you like to discuss?",
-        autofocus: true %>
+    <%= form.submit "Start new chat" %>
+  <% else %>
+    <%= poetry_alert do |alert| %>
+      <% alert.with_title { "No models available" } %>
+      Add an API key for at least one provider to start a chat.
+    <% end %>
   <% end %>
-
-  <%= form.submit "Start new chat" %>
 <% end %>

@@ -12,7 +12,7 @@
         <pre class="whitespace-pre-wrap text-sm overflow-x-auto"><%= tool.content.presence || "(no output)" %></pre>
       <% end %>
       <% chat_message.with_footer do %>
-        <span class="text-sm"><%= tool.created_at&.strftime("%I:%M %p") %></span>
+        <span class="text-sm"><%= local_time_tag(tool.created_at) %></span>
       <% end %>
     <% end %>
   </div>

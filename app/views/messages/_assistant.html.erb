@@ -6,7 +6,7 @@
       <div id="message_<%= assistant.id %>_content" class="whitespace-pre-wrap"><%= assistant.content %></div>
     <% end %>
     <% message.with_footer do %>
-      <span class="text-sm"><%= assistant.created_at&.strftime("%I:%M %p") %></span>
+      <span class="text-sm"><%= local_time_tag(assistant.created_at) %></span>
     <% end %>
   <% end %>
 </div>
