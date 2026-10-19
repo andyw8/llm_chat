@@ -49,6 +49,9 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # Executable architecture checks for Ruby and Rails [https://github.com/crmne/archspec]
+  gem "archspec"
 end
 
 group :development do
