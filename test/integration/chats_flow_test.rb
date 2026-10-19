@@ -6,7 +6,14 @@ class ChatsFlowTest < ActionDispatch::IntegrationTest
     MessagesHelper.define_method(:default_model_display_name) { "Default model" }
 
     @model = RubyLLM::ActiveRecord::Model.create!(
-      model_id: "test-model", name: "Test Model", provider: "test"
+      model_id: "test-model",
+      name: "Test Model",
+      provider: "test",
+      metadata: {
+        "reasoning_options" => [
+          { "type" => "effort", "values" => %w[low high] }
+        ]
+      }
     )
     @chat = Chat.create!(model: @model)
     @chat.messages.create!(role: "user", content: "Hello from the user")
@@ -35,6 +42,68 @@ class ChatsFlowTest < ActionDispatch::IntegrationTest
     assert_select "div#messages"
     assert_select "form#new_message"
     assert_select "h1", text: @chat.title
+    assert_select "button[aria-label=?]", "Chat settings"
+    assert_select "form#chat-settings-form"
+    assert_select "input[name=?]", "chat[custom_title]"
+    assert_select "textarea[name=?]", "chat[system_prompt]"
+    assert_select "select[name=?]", "chat[reasoning_effort]"
+    assert_select "input[name=?]", "chat[sampling_temperature]"
+  end
+
+  test "update saves the chat's title, system prompt, reasoning effort, and temperature" do
+    patch chat_url(@chat), params: {
+      chat: {
+        custom_title: "Project kickoff",
+        system_prompt: "Be concise.",
+        reasoning_effort: "high",
+        sampling_temperature: "0.4"
+      }
+    }
+
+    assert_redirected_to chat_url(@chat)
+
+    @chat.reload
+    assert_equal "Project kickoff", @chat.custom_title
+    assert_equal "Project kickoff", @chat.title
+    assert_equal "Be concise.", @chat.system_prompt
+    assert_equal "high", @chat.reasoning_effort
+    assert_in_delta 0.4, @chat.sampling_temperature
+  end
+
+  test "temperature is hidden and cleared for models that do not support it" do
+    @model.update!(metadata: @model.metadata.merge("temperature" => false))
+    @chat.update_columns(sampling_temperature: 0.7)
+
+    get chat_url(@chat)
+    assert_response :success
+    assert_select "input[name=?]", "chat[sampling_temperature]", count: 0
+
+    patch chat_url(@chat), params: { chat: { sampling_temperature: "0.9" } }
+    assert_redirected_to chat_url(@chat)
+
+    assert_nil @chat.reload.sampling_temperature
+  end
+
+  test "update clears settings when the fields are blank" do
+    @chat.update!(
+      custom_title: "Project kickoff",
+      system_prompt: "Be concise.",
+      reasoning_effort: "high",
+      sampling_temperature: 0.4
+    )
+
+    patch chat_url(@chat), params: {
+      chat: { custom_title: "", system_prompt: "", reasoning_effort: "", sampling_temperature: "" }
+    }
+
+    assert_redirected_to chat_url(@chat)
+
+    @chat.reload
+    assert_nil @chat.custom_title
+    assert_equal "Hello from the user", @chat.title
+    assert_nil @chat.system_prompt
+    assert_nil @chat.reasoning_effort
+    assert_nil @chat.sampling_temperature
   end
 
   test "new renders the new chat form inside the detail frame" do

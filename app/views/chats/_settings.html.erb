@@ -1,0 +1,65 @@
+<% chat_models = local_assigns[:chat_models] || [] %>
+<% model_options = chat_models.map { |model| [ model.label, ModelCatalog.option_value(model) ] } %>
+<% current_model_option = [ chat.provider, chat.model_id ].join(":") %>
+<% if chat.model && model_options.none? { |option| option.last == current_model_option } %>
+  <% model_options.unshift([ chat.model.label, current_model_option ]) %>
+<% end %>
+<% reasoning_efforts = chat.available_reasoning_efforts %>
+
+<%= poetry_sheet(side: :right) do |sheet| %>
+  <% sheet.with_trigger(variant: :ghost, size: :icon, label: "Chat settings") do %>
+    <%= poetry_icon(name: :settings) %>
+  <% end %>
+  <% sheet.with_title { "Chat settings" } %>
+  <% sheet.with_description { "These settings apply only to this chat, and to future replies." } %>
+
+  <%= form_with(model: chat, url: chat_path(chat), method: :patch, builder: Poetry::Ui::FormBuilder,
+        id: "chat-settings-form", class: "flex flex-col gap-6 px-4", data: { turbo_frame: "_top" }) do |form| %>
+    <%= form.input :custom_title,
+        label: "Title",
+        placeholder: chat.default_title,
+        hint: "Leave blank to use the first message as the title." %>
+
+    <% if model_options.any? %>
+      <%= form.group do |fields| %>
+        <%= fields.input :model,
+            as: :native_select,
+            collection: model_options,
+            selected: current_model_option,
+            class: "w-full",
+            label: "Model" %>
+      <% end %>
+    <% end %>
+
+    <%= form.input :system_prompt,
+        as: :text,
+        rows: 6,
+        placeholder: "You are a helpful assistant…",
+        hint: "Sets the assistant's behaviour for this chat only. Changes apply to future replies." %>
+
+    <% if reasoning_efforts.any? %>
+      <%= form.input :reasoning_effort,
+          as: :native_select,
+          collection: reasoning_efforts.map { |effort| [ effort.titleize, effort ] },
+          include_blank: "Model default",
+          selected: chat.reasoning_effort,
+          class: "w-full",
+          label: "Reasoning effort",
+          hint: "Higher effort spends more reasoning tokens. Leave blank to use the model's default." %>
+    <% end %>
+
+    <% if chat.supports_temperature? %>
+      <%= form.input :sampling_temperature,
+          label: "Temperature",
+          min: 0,
+          max: 2,
+          step: 0.1,
+          hint: "Between 0 and 2. Leave blank to use the model's default." %>
+    <% end %>
+  <% end %>
+
+  <% sheet.with_footer do %>
+    <%= poetry_button(variant: :outline, data: { action: "click->poetry--core--sheet#close" }) { "Cancel" } %>
+    <%= poetry_button(type: :submit, form: "chat-settings-form") { "Save changes" } %>
+  <% end %>
+<% end %>

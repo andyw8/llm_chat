@@ -8,12 +8,7 @@
       <h1 class="truncate text-sm font-semibold"><%= @chat.title %></h1>
       <p class="truncate text-xs text-muted-foreground"><%= @chat.model&.label || default_model_display_name %></p>
     </div>
-    <%= form_with url: chat_path(@chat), method: :delete, data: { turbo_confirm: "Delete this chat?" } do %>
-      <%= poetry_button(type: :submit, variant: :destructive, size: :sm) do |button| %>
-        <% button.with_leading { poetry_icon(name: :trash) } %>
-        Delete
-      <% end %>
-    <% end %>
+    <%= render "chats/settings", chat: @chat, chat_models: @chat_models %>
   </div>
 
   <% if notice.present? %>
