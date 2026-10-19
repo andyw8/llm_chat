@@ -1,4 +1,5 @@
 <% assistant ||= local_assigns[:message] %>
+<% assistant_cost = assistant.cost.total %>
 <div id="message_<%= assistant.id %>">
   <%= poetry_message(align: :start) do |message| %>
     <% message.with_header { poetry_badge(variant: :success) { "Assistant" } } %>
@@ -8,6 +9,9 @@
     <% message.with_footer do %>
       <div class="flex items-center gap-2">
         <span class="text-sm"><%= local_time_tag(assistant.created_at) %></span>
+        <% if assistant_cost %>
+          <span class="text-sm" title="<%= token_breakdown(assistant.tokens) %>"><%= cost_label(assistant_cost) %></span>
+        <% end %>
         <%= render "messages/delete", message: assistant %>
       </div>
     <% end %>

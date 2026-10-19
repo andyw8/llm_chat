@@ -58,6 +58,22 @@
     <% end %>
   <% end %>
 
+  <% usage_requests = chat.ruby_llm_usages.size %>
+  <% if usage_requests.positive? %>
+    <% usage_tokens = chat.tokens %>
+    <div id="chat-usage" class="mt-6 flex flex-col gap-1 px-4">
+      <h3 class="text-sm font-medium">Usage</h3>
+      <p class="text-sm text-muted-foreground">
+        <%= cost_label(chat.cost.total) %> across <%= pluralize(usage_requests, "request") %> ·
+        <%= token_count_label(usage_tokens.input) %> in ·
+        <%= token_count_label(usage_tokens.output) %> out<% if usage_tokens.thinking.to_i.positive? %> ·
+        <%= token_count_label(usage_tokens.thinking) %> thinking<% end %><% if usage_tokens.cache_read.to_i.positive? %> ·
+        <%= token_count_label(usage_tokens.cache_read) %> cached<% end %>.
+        Replies deleted from the transcript still count.
+      </p>
+    </div>
+  <% end %>
+
   <% sheet.with_footer do %>
     <%= poetry_button(variant: :outline, data: { action: "click->poetry--core--sheet#close" }) { "Cancel" } %>
     <%= poetry_button(type: :submit, form: "chat-settings-form") { "Save changes" } %>

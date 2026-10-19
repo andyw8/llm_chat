@@ -23,6 +23,8 @@ class ChatsController < ApplicationController
   def show
     @message = Message.new
     @chat_models = ModelCatalog.available
+    # The transcript shows each reply's cost, which reads its usage entries.
+    @messages = @chat.messages.includes(:ruby_llm_usages)
   end
 
   def update
