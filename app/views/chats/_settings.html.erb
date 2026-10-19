@@ -23,11 +23,10 @@
     <% if model_options.any? %>
       <%= form.group do |fields| %>
         <%= fields.input :model,
-            as: :select,
+            as: :native_select,
             collection: model_options,
-            value: current_model_option,
-            trigger_class: "w-full",
-            data: { poetry_portal_container: "chat-settings-portal" },
+            selected: current_model_option,
+            class: "w-full",
             label: "Model" %>
       <% end %>
     <% end %>
@@ -40,12 +39,11 @@
 
     <% if reasoning_efforts.any? %>
       <%= form.input :reasoning_effort,
-          as: :select,
+          as: :native_select,
           collection: reasoning_efforts.map { |effort| [ effort.titleize, effort ] },
           include_blank: "Model default",
-          value: chat.reasoning_effort,
-          trigger_class: "w-full",
-          data: { poetry_portal_container: "chat-settings-portal" },
+          selected: chat.reasoning_effort,
+          class: "w-full",
           label: "Reasoning effort",
           hint: "Higher effort spends more reasoning tokens. Leave blank to use the model's default." %>
     <% end %>
@@ -59,9 +57,6 @@
   <% end %>
 
   <% sheet.with_footer do %>
-    <%# Select popups portal to body by default, which paints behind a modal
-        dialog's top layer. Keep them inside the sheet instead. %>
-    <div id="chat-settings-portal"></div>
     <%= poetry_button(variant: :outline, data: { action: "click->poetry--core--sheet#close" }) { "Cancel" } %>
     <%= poetry_button(type: :submit, form: "chat-settings-form") { "Save changes" } %>
   <% end %>

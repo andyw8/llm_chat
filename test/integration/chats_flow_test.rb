@@ -48,8 +48,6 @@ class ChatsFlowTest < ActionDispatch::IntegrationTest
     assert_select "textarea[name=?]", "chat[system_prompt]"
     assert_select "select[name=?]", "chat[reasoning_effort]"
     assert_select "input[name=?]", "chat[sampling_temperature]"
-    assert_select "div#chat-settings-portal"
-    assert_select "[data-poetry-portal-container=?]", "chat-settings-portal", count: 2
   end
 
   test "update saves the chat's title, system prompt, reasoning effort, and temperature" do
