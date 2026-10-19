@@ -7,6 +7,7 @@
           collection: @chat_models.map { |model| [ model.label, ModelCatalog.option_value(model) ] },
           include_blank: ModelCatalog.default_model_available? ? default_model_display_name : false,
           value: @selected_model,
+          trigger_class: "w-full",
           autofocus: true,
           label: "Select AI model" %>
     <% end %>
