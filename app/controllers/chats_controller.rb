@@ -9,8 +9,8 @@ class ChatsController < ApplicationController
 
   def new
     @chat = Chat.new
-    @selected_model = params[:provider] ? [ params[:provider], params[:model] ].join(":") : params[:model]
-    @chat_models = available_chat_models
+    @chat_models = ModelCatalog.available
+    @selected_model = selected_chat_model
   end
 
   def create
@@ -30,6 +30,13 @@ class ChatsController < ApplicationController
   end
 
   private
+
+  def selected_chat_model
+    requested = params[:provider] ? [ params[:provider], params[:model] ].join(":") : params[:model]
+    return requested if @chat_models.any? { |model| ModelCatalog.option_value(model) == requested }
+
+    ModelCatalog.default_model_option || @chat_models.first&.then { |model| ModelCatalog.option_value(model) }
+  end
 
   def load_chats
     @chats = Chat.includes(:messages).order(created_at: :desc)

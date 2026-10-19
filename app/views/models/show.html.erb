@@ -1,4 +1,5 @@
 <% content_for :title, "Showing model" %>
+<% available = ModelCatalog.available?(@model) %>
 
 <div class="md:w-2/3 w-full">
   <% if notice.present? %>
@@ -9,7 +10,12 @@
 
   <div class="my-5">
     <%= poetry_metadata_list(columns: :two) do |list| %>
-      <% list.with_item(label: "Provider") { @model.provider_class&.name || @model.provider } %>
+      <% list.with_item(label: "Provider") { @model.provider_class&.display_name || @model.provider } %>
+      <% list.with_item(label: "Availability") do %>
+        <%= poetry_badge(variant: available ? :success : :secondary) do %>
+          <%= available ? "Available" : "Unavailable" %>
+        <% end %>
+      <% end %>
       <% list.with_item(label: "Model") { @model.name } %>
       <% list.with_item(label: "ID") { @model.id } %>
       <% list.with_item(label: "Context Window") { number_with_delimiter(@model.context_window) if @model.context_window } %>
@@ -26,6 +32,13 @@
     <% end %>
   </div>
 
-  <%= poetry_button(tag: :a, href: new_chat_path(model: [@model.provider, @model.id].join(":")), variant: :secondary, class: "w-full sm:w-auto") { "Start chat with this model" } %>
+  <% if available %>
+    <%= poetry_button(tag: :a, href: new_chat_path(model: ModelCatalog.option_value(@model)), variant: :secondary, class: "w-full sm:w-auto") { "Start chat with this model" } %>
+  <% else %>
+    <%= poetry_button(disabled: true, variant: :secondary, class: "w-full sm:w-auto") { "Start chat with this model" } %>
+    <p class="mt-2 text-sm text-muted-foreground">
+      Configure an API key for <%= @model.provider_class&.display_name || @model.provider %> to use this model.
+    </p>
+  <% end %>
   <%= poetry_button(tag: :a, href: models_path, variant: :secondary, class: "w-full sm:w-auto mt-2 sm:mt-0 sm:ml-2") { "All models" } %>
 </div>

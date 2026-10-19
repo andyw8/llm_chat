@@ -1,6 +1,7 @@
 <% row_id = [model.provider, model.id].join("_").parameterize(separator: "_") %>
+<% available = ModelCatalog.available?(model) %>
 <%= poetry_table_row(id: "model_#{row_id}") do %>
-  <%= poetry_table_cell { model.provider_class&.name || model.provider } %>
+  <%= poetry_table_cell { model.provider_class&.display_name || model.provider } %>
   <%= poetry_table_cell { model.name } %>
   <%= poetry_table_cell { number_with_delimiter(model.context_window) if model.context_window } %>
   <%= poetry_table_cell do %>
@@ -11,6 +12,15 @@
     <% end %>
   <% end %>
   <%= poetry_table_cell do %>
-    <%= poetry_link(href: new_chat_path(model: [model.provider, model.id].join(":"))) { "Start chat" } %>
+    <%= poetry_badge(variant: available ? :success : :secondary) do %>
+      <%= available ? "Available" : "Unavailable" %>
+    <% end %>
+  <% end %>
+  <%= poetry_table_cell do %>
+    <% if available %>
+      <%= poetry_link(href: new_chat_path(model: ModelCatalog.option_value(model))) { "Start chat" } %>
+    <% else %>
+      <span class="text-sm text-muted-foreground">Not configured</span>
+    <% end %>
   <% end %>
 <% end %>
