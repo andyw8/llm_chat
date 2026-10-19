@@ -6,7 +6,10 @@
       <div id="message_<%= user.id %>_content" class="whitespace-pre-wrap"><%= user.content %></div>
     <% end %>
     <% message.with_footer do %>
-      <span class="text-sm"><%= local_time_tag(user.created_at) %></span>
+      <div class="flex items-center gap-2">
+        <span class="text-sm"><%= local_time_tag(user.created_at) %></span>
+        <%= render "messages/delete", message: user %>
+      </div>
     <% end %>
   <% end %>
 </div>

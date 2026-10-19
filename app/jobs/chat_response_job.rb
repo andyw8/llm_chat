@@ -6,7 +6,9 @@ class ChatResponseJob < ApplicationJob
     chat.ask(content) do |chunk|
       if chunk.content && !chunk.content.empty?
         message = chat.messages.last
-        message.broadcast_append_chunk(chunk.content)
+        # The reader can delete the streaming reply mid-flight; without the
+        # role check the next chunk would land in the previous (user) message.
+        message.broadcast_append_chunk(chunk.content) if message&.role == "assistant"
       end
     end
   end

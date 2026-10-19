@@ -16,8 +16,8 @@ class ChatsFlowTest < ActionDispatch::IntegrationTest
       }
     )
     @chat = Chat.create!(model: @model)
-    @chat.messages.create!(role: "user", content: "Hello from the user")
-    @chat.messages.create!(role: "assistant", content: "Hello from the assistant")
+    @user_message = @chat.messages.create!(role: "user", content: "Hello from the user")
+    @assistant_message = @chat.messages.create!(role: "assistant", content: "Hello from the assistant")
   end
 
   teardown do
@@ -48,6 +48,39 @@ class ChatsFlowTest < ActionDispatch::IntegrationTest
     assert_select "textarea[name=?]", "chat[system_prompt]"
     assert_select "select[name=?]", "chat[reasoning_effort]"
     assert_select "input[name=?]", "chat[sampling_temperature]"
+  end
+
+  test "show renders a delete control for user and assistant messages" do
+    get chat_url(@chat)
+
+    assert_response :success
+    [ @user_message, @assistant_message ].each do |message|
+      assert_select "form[action=?]", chat_message_path(@chat, message) do
+        assert_select "input[name=_method][value=delete]"
+        assert_select "button[aria-label=?]", "Delete message"
+      end
+    end
+  end
+
+  test "destroy deletes the message and clears it from the transcript" do
+    assert_difference -> { Message.count }, -1 do
+      delete chat_message_url(@chat, @assistant_message), as: :turbo_stream
+    end
+
+    assert_response :success
+    assert_turbo_stream action: "remove", target: ActionView::RecordIdentifier.dom_id(@assistant_message)
+    assert_not Message.exists?(@assistant_message.id)
+    assert Message.exists?(@user_message.id)
+  end
+
+  test "destroy only reaches the messages of the chat in the URL" do
+    other_message = Chat.create!(model: @model).messages.create!(role: "user", content: "Elsewhere")
+
+    assert_no_difference -> { Message.count } do
+      delete chat_message_url(@chat, other_message), as: :turbo_stream
+    end
+
+    assert_response :not_found
   end
 
   test "update saves the chat's title, system prompt, reasoning effort, and temperature" do

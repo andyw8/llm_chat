@@ -21,6 +21,16 @@ class MessagesController < ApplicationController
     end
   end
 
+  def destroy
+    @message = @chat.messages.find(params[:id])
+    @message.destroy!
+
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@message) }
+      format.html { redirect_to @chat, notice: "Message was successfully deleted.", status: :see_other }
+    end
+  end
+
   private
 
   def set_chat

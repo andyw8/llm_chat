@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount Poetry::Ui::Engine => "/poetry" # llms.txt + llms-full.txt (agent-facing docs)
   resources :chats do
-    resources :messages, only: [ :create ]
+    resources :messages, only: [ :create, :destroy ]
   end
   resources :models, only: [ :index, :show ], constraints: { id: /[^\/]+/ } do
     collection do

@@ -1,0 +1,9 @@
+<%# Delete control for one message. Kept out of the role partials' markup so the
+    user and assistant rows stay symmetrical: the caller only drops it into the
+    footer. Deletion is destructive and irreversible, so it asks first. %>
+<%= form_with url: chat_message_path(message.chat_id, message), method: :delete, class: "inline-flex" do %>
+  <%= poetry_button(variant: :ghost, size: :"icon-xs", type: :submit, label: "Delete message",
+        data: { turbo_confirm: "Delete this message?" }) do %>
+    <%= poetry_icon(name: :"trash-2") %>
+  <% end %>
+<% end %>

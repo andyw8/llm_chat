@@ -6,7 +6,10 @@
       <div id="message_<%= assistant.id %>_content" class="whitespace-pre-wrap"><%= assistant.content %></div>
     <% end %>
     <% message.with_footer do %>
-      <span class="text-sm"><%= local_time_tag(assistant.created_at) %></span>
+      <div class="flex items-center gap-2">
+        <span class="text-sm"><%= local_time_tag(assistant.created_at) %></span>
+        <%= render "messages/delete", message: assistant %>
+      </div>
     <% end %>
   <% end %>
 </div>
