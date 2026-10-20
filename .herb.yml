@@ -4,6 +4,13 @@ version: 0.11.0
 
 framework: actionview
 
+# CI installs gems into vendor/bundle, and vendored gems ship their own ERB
+# (web-console, actionmailbox, ...) - never lint anything but this repo's.
+files:
+  exclude:
+    - "vendor/**/*"
+    - "tmp/**/*"
+
 linter:
   enabled: true
   rules:
