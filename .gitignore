@@ -30,6 +30,10 @@
 
 /public/assets
 
+# Playwright MCP artifacts (screenshots, snapshots, traces)
+/.playwright-mcp/
+/tmp/playwright-mcp/
+
 # Ignore key files for decrypting credentials and more.
 /config/*.key
 

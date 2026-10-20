@@ -101,3 +101,22 @@
 
 Use https://llm_chat.test to verify changes locally - it is
 served by puma-dev.
+
+To check a page in a real browser, use the `playwright` MCP server
+(`npx @playwright/mcp`) - it is for agent verification, not for tests:
+
+- `browser_navigate` to the URL, then `browser_snapshot` for an
+  accessibility-tree view of what actually rendered. Read this instead of
+  guessing from the ERB.
+- `browser_console_messages` and `browser_network_requests` surface JS
+  errors and failed asset/response requests after an interaction.
+- `browser_click` / `browser_type` / `browser_fill_form` to drive Turbo
+  interactions, then `browser_snapshot` again to confirm the frame/stream
+  updated.
+- `browser_take_screenshot` when layout, spacing, or color is the question.
+
+The server launches headless Chrome with a throwaway profile
+(`--isolated`), so sessions do not leak between checks. Artifacts land in
+`tmp/playwright-mcp/` (views, screenshots, traces) - never commit them.
+Drop `--isolated` from `opencode.json` if a check needs a persistent
+logged-in session.
