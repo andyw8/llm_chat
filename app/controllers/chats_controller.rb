@@ -17,7 +17,7 @@ class ChatsController < ApplicationController
     provider, model = params.dig(:chat, :model).to_s.split(":", 2)
     @chat = Chat.create!(model: model.presence, provider: provider.presence)
 
-    redirect_to @chat, notice: "Chat was successfully created."
+    redirect_to @chat
   end
 
   def show
