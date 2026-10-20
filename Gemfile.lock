@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/andyw8/herb-embedded.git
+  revision: b93b60c6898ca08f4bd4311a1988911b2c2b26b0
+  branch: upgrade-herb-0.11.1
+  specs:
+    herb-embedded (0.11.1.0)
+      herb (~> 0.11.1)
+      mini_racer (~> 0.22)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -128,14 +137,14 @@ GEM
       raabro (~> 1.4)
     globalid (1.4.0)
       activesupport (>= 6.1)
-    herb (0.11.0-aarch64-linux-gnu)
-    herb (0.11.0-aarch64-linux-musl)
-    herb (0.11.0-arm-linux-gnu)
-    herb (0.11.0-arm-linux-musl)
-    herb (0.11.0-arm64-darwin)
-    herb (0.11.0-x86_64-darwin)
-    herb (0.11.0-x86_64-linux-gnu)
-    herb (0.11.0-x86_64-linux-musl)
+    herb (0.11.1-aarch64-linux-gnu)
+    herb (0.11.1-aarch64-linux-musl)
+    herb (0.11.1-arm-linux-gnu)
+    herb (0.11.1-arm-linux-musl)
+    herb (0.11.1-arm64-darwin)
+    herb (0.11.1-x86_64-darwin)
+    herb (0.11.1-x86_64-linux-gnu)
+    herb (0.11.1-x86_64-linux-musl)
     i18n (1.15.2)
       concurrent-ruby (~> 1.0)
     image_processing (2.2.0)
@@ -151,6 +160,13 @@ GEM
       reline (>= 0.4.2)
     json (3.1.0)
     language_server-protocol (3.17.0.6)
+    libv8-node (24.12.0.1)
+    libv8-node (24.12.0.1-aarch64-linux)
+    libv8-node (24.12.0.1-aarch64-linux-musl)
+    libv8-node (24.12.0.1-arm64-darwin)
+    libv8-node (24.12.0.1-x86_64-darwin)
+    libv8-node (24.12.0.1-x86_64-linux)
+    libv8-node (24.12.0.1-x86_64-linux-musl)
     lint_roller (1.1.0)
     logger (1.7.0)
     loofah (2.25.2)
@@ -165,6 +181,8 @@ GEM
     marcel (1.2.1)
     matrix (0.4.3)
     mini_mime (1.1.5)
+    mini_racer (0.22.1)
+      libv8-node (~> 24.12.0.1)
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
@@ -428,6 +446,7 @@ DEPENDENCIES
   capybara
   debug
   herb
+  herb-embedded!
   image_processing (~> 2.2)
   importmap-rails
   pg (~> 1.1)
@@ -489,14 +508,15 @@ CHECKSUMS
   faraday-retry (2.4.0) sha256=7b79c48fb7e56526faf247b12d94a680071ff40c9fda7cf1ec1549439ad11ebe
   fugit (1.14.0) sha256=e311a9cc85a54bb67649df45060e721282a1e2c8ebad40e41874a3a7d576f37e
   globalid (1.4.0) sha256=037f12fbf1d9d7a014d501c2d5c77356fd4ddd96d7a7991d6700bba96706f427
-  herb (0.11.0-aarch64-linux-gnu) sha256=7d8244655bb99a50b2d52ea13408c2a76b3fbd70bcca8ccee4229d3e1902bb0b
-  herb (0.11.0-aarch64-linux-musl) sha256=8b19e8ce70cae1a016468cd6c3a88a051e47fd68f3f8b1bd3ffb751a62109982
-  herb (0.11.0-arm-linux-gnu) sha256=8fd8e3c4d45c3b6bc8a2b7f056ac4bf961cfb03407fef26f7e1d5ef69406bf5d
-  herb (0.11.0-arm-linux-musl) sha256=0ac4e441389d8e67ef1afcabdb1bff94f5b7cd1c2811159647f61fc7bc241f8d
-  herb (0.11.0-arm64-darwin) sha256=8972ac3e5a7ee7296a89d78fceb40d8fb85c3ea8d40c9781a9c8db3e58194501
-  herb (0.11.0-x86_64-darwin) sha256=2eb9db026a1949cb2ad8cfa1944ef8402feab784c7d37a35c48575a9e0d79912
-  herb (0.11.0-x86_64-linux-gnu) sha256=aba19094bc1618e1bc0fb59db52ba251c93a24598f5228815616b282f10bb8a0
-  herb (0.11.0-x86_64-linux-musl) sha256=e27a08fe72304c8043e851b568ed30eaa45f06b5333d151939a7834e936c01aa
+  herb (0.11.1-aarch64-linux-gnu) sha256=5484e0fc0bd5d040380cbbf503e86dccf3fc1d33428b7ad02715ee7dcaa018f9
+  herb (0.11.1-aarch64-linux-musl) sha256=1113663d5e7832dad601547edb4606557ac84def516479ee5136fc7072747a58
+  herb (0.11.1-arm-linux-gnu) sha256=849d49d6ec27aaf5a9ea07e66434fbb16a8c599b287e8f24f7478d6b358666da
+  herb (0.11.1-arm-linux-musl) sha256=de283c299df16c089e209dbc461fe003d4b3fbf100168637c8f983cc97186b5e
+  herb (0.11.1-arm64-darwin) sha256=c5d3c1d5f88a504bcfa6a4bb52f56650dc40345e23cdf051b02f3390cf184d9e
+  herb (0.11.1-x86_64-darwin) sha256=f73cad010299bf998bd4ead676b80ae2c1f0ff5487a2ef852e8d83652f74ced0
+  herb (0.11.1-x86_64-linux-gnu) sha256=e3104c5dab07300a2ea6fc3898014cf57db978fbf09f5554a2a6ef6c46f973f8
+  herb (0.11.1-x86_64-linux-musl) sha256=0c687b667b612e7cc2403e9991ee7c8e8d10cfef026cf41165f9d99284630b09
+  herb-embedded (0.11.1.0)
   i18n (1.15.2) sha256=00f9eb62412fe593b2a65a97daa75300d37abb8f7202ec748e94b6d46a9dd1b5
   image_processing (2.2.0) sha256=e0cb9892a4395ac2b7bb2fac5c6f5bc63361f2f18ed08773e21fce5b111c6974
   importmap-rails (2.2.3) sha256=7101be2a4dc97cf1558fb8f573a718404c5f6bcfe94f304bf1f39e444feeb16a
@@ -504,6 +524,13 @@ CHECKSUMS
   irb (1.18.0) sha256=de9454a0703a54704b9811a5ef31a60c86949fbf4013fcf244fabc7c775248e3
   json (3.1.0) sha256=3ce7ccf8fde58960177a3a756c31f292a4c1e1dedee884547096a5b0604e3bd8
   language_server-protocol (3.17.0.6) sha256=5ef2c0c138f8267e1bc631d3328347d354f96724b0af22f2c79516120443b7f0
+  libv8-node (24.12.0.1) sha256=d93d23b861bfe5de3ba829e34a142402fb83b4c3592dd58d9ac4e027588d739a
+  libv8-node (24.12.0.1-aarch64-linux) sha256=22bd0246cde85d70c88cf772727ac3677a20ac1d169105f82efe5f1f7c39f755
+  libv8-node (24.12.0.1-aarch64-linux-musl) sha256=791b5960f79525e87d1bd1e5f2bf3715ef2a38bac6c97f297853e98a8411ba89
+  libv8-node (24.12.0.1-arm64-darwin) sha256=124904a46b4a15c01ac024b4cf537dcf199cfb49a309cc59f66315e156e48339
+  libv8-node (24.12.0.1-x86_64-darwin) sha256=5eee594393e7a27dc230a7fca5f9f72fc11ed58bce655624a683f4d027bf2d16
+  libv8-node (24.12.0.1-x86_64-linux) sha256=e1236be4765edc109bd6ecef2989cf781bdcbac6f6e2cb3236ec9568540a9cfa
+  libv8-node (24.12.0.1-x86_64-linux-musl) sha256=7563175534c40893815bfd28e8fe27e12ff1656700c7208f53de06d14001712b
   lint_roller (1.1.0) sha256=2c0c845b632a7d172cb849cc90c1bce937a28c5c8ccccb50dfd46a485003cc87
   logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
   loofah (2.25.2) sha256=2007f746959ac65552456e04b433e83deb22759ab38c838b4445c70e43425918
@@ -511,6 +538,7 @@ CHECKSUMS
   marcel (1.2.1) sha256=1678e9360e32f9eafa917c80029e2f6d10b2715c66a4b87b6d0da9b9cd1f859f
   matrix (0.4.3) sha256=a0d5ab7ddcc1973ff690ab361b67f359acbb16958d1dc072b8b956a286564c5b
   mini_mime (1.1.5) sha256=8681b7e2e4215f2a159f9400b5816d85e9d8c6c6b491e96a12797e798f8bccef
+  mini_racer (0.22.1) sha256=c0a7baa4035fe57488bf9856bdafb657c99997cbe0441b1838cfd886fe21518a
   minitest (6.0.6) sha256=153ea36d1d987a62942382b61075745042a2b3123b1cd48f4c3675af9cc7d6f1
   msgpack (1.8.5) sha256=97419eaa7b35dfe3e462c0e6c1a3dfdcbfc8756605c09e46e4c6daef127517ba
   multipart-post (2.4.1) sha256=9872d03a8e552020ca096adadbf5e3cb1cd1cdd6acd3c161136b8a5737cdb4a8

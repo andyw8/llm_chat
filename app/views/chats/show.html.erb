@@ -17,9 +17,7 @@
 
   <%= poetry_message_scroller(id: "chat-transcript", content_id: "messages", auto_scroll: true,
         default_scroll_position: :end, jump_button: true, class: "flex-1 px-4") do %>
-    <% @messages.each do |message| %>
-      <%= render message %>
-    <% end %>
+    <%= render @messages %>
   <% end %>
 
   <div class="shrink-0 border-t p-4">

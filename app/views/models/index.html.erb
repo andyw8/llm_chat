@@ -28,9 +28,7 @@
           <% end %>
         <% end %>
         <%= poetry_table_body do %>
-          <% @models.each do |model_info| %>
-            <%= render "models/model", model: model_info %>
-          <% end %>
+          <%= render partial: "models/model", collection: @models %>
         <% end %>
       <% end %>
     <% else %>

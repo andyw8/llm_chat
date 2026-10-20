@@ -71,3 +71,12 @@ gem "poetry"
 gem "poetry-agent"
 # poetry:check parses ERB with herb (development only)
 gem "herb", group: :development
+
+# Herb's real lint rules running in-process (V8), no Node required.
+# Git source: the released gem (0.10.3.0) pins herb ~> 0.10.3, which forces the
+# herb above down below the 0.11.0 poetry:check needs. This branch vendors the
+# 0.11.1 linter - swap to the released gem once it lands.
+gem "herb-embedded",
+  github: "andyw8/herb-embedded",
+  branch: "upgrade-herb-0.11.1",
+  group: :development
