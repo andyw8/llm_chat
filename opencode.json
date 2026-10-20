@@ -4,6 +4,20 @@
     "poetry": {
       "type": "local",
       "command": ["bundle", "exec", "poetry-agent"]
+    },
+    "playwright": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@playwright/mcp@latest",
+        "--browser",
+        "chrome",
+        "--headless",
+        "--isolated",
+        "--output-dir",
+        "tmp/playwright-mcp"
+      ]
     }
   }
 }
