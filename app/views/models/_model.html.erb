@@ -2,7 +2,9 @@
 <% available = ModelCatalog.available?(model) %>
 <%= poetry_table_row(id: "model_#{row_id}") do %>
   <%= poetry_table_cell { model.provider_class&.display_name || model.provider } %>
-  <%= poetry_table_cell { model.name } %>
+  <%= poetry_table_cell do %>
+    <%= poetry_link(href: model_path(model.id, provider: model.provider)) { model.name } %>
+  <% end %>
   <%= poetry_table_cell { number_with_delimiter(model.context_window) if model.context_window } %>
   <%= poetry_table_cell do %>
     <% input = model.price(:input) %>
