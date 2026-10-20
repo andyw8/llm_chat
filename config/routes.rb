@@ -3,11 +3,16 @@ Rails.application.routes.draw do
   resources :chats do
     resources :messages, only: [ :create, :destroy ]
   end
-  resources :models, only: [ :index, :show ], constraints: { id: /[^\/]+/ } do
+  resources :models, only: [ :index ] do
     collection do
       post :refresh
     end
   end
+  # Model ids are provider-scoped slugs that carry a slash
+  # ("aion-labs/aion-3.5"), so the detail route takes the whole tail rather
+  # than a single segment. format: false keeps dots in ids ("gpt-5.1") out of
+  # the format parser.
+  get "models/*id", to: "models#show", as: :model, format: false
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

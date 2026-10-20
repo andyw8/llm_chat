@@ -39,7 +39,7 @@ class ChatsController < ApplicationController
 
   def destroy
     @chat.destroy!
-    redirect_to chats_path, notice: "Chat was successfully destroyed.", status: :see_other
+    redirect_to chats_path, status: :see_other
   end
 
   private

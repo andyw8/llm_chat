@@ -28,7 +28,18 @@ class ModelAvailabilityTest < ActionDispatch::IntegrationTest
     assert_select row_selector(@openrouter_model) do
       assert_select "*", text: "Available", minimum: 1
       assert_select "a", text: "Start chat", count: 1
+      assert_select "a[href=?]", model_path(@openrouter_model.id, provider: @openrouter_model.provider),
+                    text: @openrouter_model.name
     end
+  end
+
+  test "model detail page resolves an id that contains a slash" do
+    assert_includes @openrouter_model.id, "/"
+
+    get model_url(@openrouter_model.id, provider: @openrouter_model.provider)
+
+    assert_response :success
+    assert_select "*", text: @openrouter_model.name, minimum: 1
   end
 
   test "new chat only lists models from configured providers" do

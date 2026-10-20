@@ -109,6 +109,15 @@ class ChatsFlowTest < ActionDispatch::IntegrationTest
     assert_select "#chat-usage p", text: /— across 1 request/
   end
 
+  test "destroy redirects to the chat list without a flash notice" do
+    delete chat_url(@chat)
+
+    assert_response :see_other
+    assert_redirected_to chats_url
+    assert_nil flash[:notice]
+    assert_not Chat.exists?(@chat.id)
+  end
+
   test "destroy only reaches the messages of the chat in the URL" do
     other_message = Chat.create!(model: @model).messages.create!(role: "user", content: "Elsewhere")
 

@@ -5,6 +5,10 @@ import { Controller } from "@hotwired/stimulus"
 // the active highlight in step with the link the reader followed and updates
 // the address bar (Turbo Frames don't touch the URL on their own).
 //
+// The document title and the header label live outside the frame too, so
+// they would otherwise keep the previous page's values; syncChrome reads the
+// freshly loaded frame and puts them right.
+//
 // We deliberately avoid data-turbo-action on the frame links: Turbo's
 // page-visit path for frames re-arms poetry's message-scroller opening hold
 // (data-pending-scroll), leaving the transcript hidden.
@@ -13,11 +17,14 @@ export default class extends Controller {
 
   connect() {
     this.onPopState = () => this.restoreFromLocation()
+    this.onFrameLoad = (event) => this.syncChrome(event.target)
     window.addEventListener("popstate", this.onPopState)
+    document.addEventListener("turbo:frame-load", this.onFrameLoad)
   }
 
   disconnect() {
     window.removeEventListener("popstate", this.onPopState)
+    document.removeEventListener("turbo:frame-load", this.onFrameLoad)
   }
 
   select(event) {
@@ -43,6 +50,18 @@ export default class extends Controller {
     this.restoring = true
     link.click()
     this.restoring = false
+  }
+
+  // The frame holds the page's h1 (a chat title, or "New chat"); the chat
+  // list's empty state has none, so /chats falls back to the section name.
+  syncChrome(frame) {
+    if (!(frame instanceof HTMLElement) || frame.id !== "chat") return
+
+    const heading = frame.querySelector("h1")
+    document.title = heading ? heading.textContent.trim() : "Chats"
+
+    const label = document.querySelector("[data-chat-nav-label]")
+    if (label) label.textContent = window.location.pathname === "/chats/new" ? "New chat" : "Chats"
   }
 
   markActive(link) {
