@@ -99,5 +99,5 @@
 
 ## Local verification
 
-Use https://try_ruby_llm_2_chat.test to verify changes locally - it is
+Use https://llm_chat.test to verify changes locally - it is
 served by puma-dev.
