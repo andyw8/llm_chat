@@ -1,4 +1,5 @@
-<%= form_with(model: message, url: [@chat, message], id: "new_message", builder: Poetry::Ui::FormBuilder,
+<%# locals: (chat:, message:) %>
+<%= form_with(model: message, url: [ chat, message ], id: "new_message", builder: Poetry::Ui::FormBuilder,
       data: { controller: "submit-shortcut", action: "keydown->submit-shortcut#submit" }) do |form| %>
   <%= form.input :content,
       as: :text,

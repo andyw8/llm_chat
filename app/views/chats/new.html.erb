@@ -3,6 +3,6 @@
 <%= turbo_frame_tag "chat", class: "flex min-h-0 flex-1 flex-col" do %>
   <div class="mx-auto w-full max-w-2xl overflow-y-auto p-6">
     <h1 class="mb-4 text-lg font-semibold">New chat</h1>
-    <%= render "form", chat: @chat %>
+    <%= render "form", chat: @chat, chat_models: @chat_models, selected_model: @selected_model %>
   </div>
 <% end %>
