@@ -1,24 +1,30 @@
-# README
+# LLM Chat
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A Rails app for chatting with LLM models. Powered by [crmne/ruby_llm](https://github.com/crmne/ruby_llm). Simlar to [Librechat](https://www.librechat.ai).
 
-Things you may want to cover:
+Ruby LLM provides a basic Rails generator build built a chat UI. This builds on top of that.
 
-* Ruby version
+## What's added
 
-* System dependencies
+**A redesigned chat screen.** Conversations live in a sidebar next to the chat.
+**Only models you can actually use.** The new-chat list offers models whose provider is configured.
+**Per-chat settings.** Title, model, system prompt, reasoning effort, and temperature.
+**Delete messages.** Any user or assistant message can be deleted.
+**Cost and token tracking.** Each reply shows what it cost, and the settings sheet summarises the conversation's spend and token use.
+**Built on Poetry.** [Poetry](https://github.com/roboruby/poetry) components.
 
-* Configuration
+## Running it locally
 
-* Database creation
+Requires Ruby, PostgreSQL, and an API key for at least one provider.
 
-* Database initialization
+```sh
+bin/setup
+bin/dev
+```
 
-* How to run the test suite
+Keys come from the environment or Rails credentials:
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```sh
+export OPENROUTER_API_KEY=...
+export OPENAI_API_KEY=...
+```
