@@ -1,8 +1,8 @@
 # LLM Chat
 
-A Rails app for chatting with LLM models. Powered by [crmne/ruby_llm](https://github.com/crmne/ruby_llm). Simlar to [Librechat](https://www.librechat.ai).
+A Rails app for chatting with LLM models. Powered by [ruby_llm](https://github.com/crmne/ruby_llm). Similar to [Librechat](https://www.librechat.ai).
 
-Ruby LLM provides a basic Rails generator build built a chat UI. This builds on top of that.
+Ruby LLM provides a basic Rails generator to build a chat UI. This extends it.
 
 ## What's added
 
@@ -28,3 +28,5 @@ Keys come from the environment or Rails credentials:
 export OPENROUTER_API_KEY=...
 export OPENAI_API_KEY=...
 ```
+
+The server refuses to start until at least one provider has a key.
