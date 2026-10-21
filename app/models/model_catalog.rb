@@ -11,6 +11,10 @@ class ModelCatalog
       all.select { |model| available?(model) }
     end
 
+    def configured?
+      available.any?
+    end
+
     def available?(model)
       !!model.provider_class&.configured?(RubyLLM.config)
     end
