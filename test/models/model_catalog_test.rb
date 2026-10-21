@@ -46,7 +46,26 @@ class ModelCatalogTest < ActiveSupport::TestCase
     refute ModelCatalog.default_model_available?
   end
 
+  test "configured? requires at least one available chat model" do
+    without_any_provider_configured do
+      refute ModelCatalog.configured?
+    end
+
+    RubyLLM.config.openrouter_api_key = "test-key"
+    assert ModelCatalog.configured?
+  end
+
   private
+
+  def without_any_provider_configured
+    options = RubyLLM::Configuration.options
+    originals = options.to_h { |option| [ option, RubyLLM.config.public_send(option) ] }
+
+    options.each { |option| RubyLLM.config.public_send("#{option}=", nil) }
+    yield
+  ensure
+    originals.each { |option, value| RubyLLM.config.public_send("#{option}=", value) }
+  end
 
   def find_model(provider)
     RubyLLM.models.chat_models.all.find { |model| model.provider.to_s == provider }
