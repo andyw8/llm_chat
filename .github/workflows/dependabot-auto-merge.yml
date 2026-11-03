@@ -1,0 +1,85 @@
+name: Dependabot auto-merge
+
+# Dependabot PRs opened from the `pull_request` event get a read-only
+# GITHUB_TOKEN, so the merge has to be driven from `pull_request_target`,
+# which runs in the base repository's context with a write token. Nothing
+# from the pull request is checked out or executed here.
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: dependabot-auto-merge-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  auto-merge:
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v3
+
+      - name: Check this is a patch or minor Ruby update
+        id: decide
+        env:
+          ECOSYSTEM: ${{ steps.metadata.outputs.package-ecosystem }}
+          UPDATE_TYPE: ${{ steps.metadata.outputs.update-type }}
+        run: |
+          if [ "$ECOSYSTEM" != "bundler" ]; then
+            echo "Not a Ruby (bundler) update: $ECOSYSTEM. Leaving for review."
+            echo "merge=false" >> "$GITHUB_OUTPUT"
+          elif [ "$UPDATE_TYPE" != "version-update:semver-patch" ] &&
+               [ "$UPDATE_TYPE" != "version-update:semver-minor" ]; then
+            echo "Not a patch or minor update: $UPDATE_TYPE. Leaving for review."
+            echo "merge=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Patch/minor Ruby update. Waiting for CI."
+            echo "merge=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Wait for CI
+        id: ci
+        if: steps.decide.outputs.merge == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          # CI may not have reported any checks yet when this job starts, so
+          # poll until the checks exist and have all finished. Only the CI
+          # workflow counts - this run's own check would otherwise wait on
+          # itself.
+          for _ in $(seq 1 60); do
+            checks=$(gh pr checks "$PR_URL" --json workflow,bucket 2>/dev/null || echo '[]')
+            ci=$(printf '%s' "$checks" | jq -c '[.[] | select(.workflow == "CI")]')
+
+            if [ "$(printf '%s' "$ci" | jq 'length')" -eq 0 ]; then
+              echo "CI has not reported any checks yet."
+            elif [ "$(printf '%s' "$ci" | jq '[.[] | select(.bucket == "fail" or .bucket == "cancel")] | length')" -gt 0 ]; then
+              echo "CI is not green, not merging."
+              exit 1
+            elif [ "$(printf '%s' "$ci" | jq '[.[] | select(.bucket == "pending")] | length')" -gt 0 ]; then
+              echo "CI is still running."
+            else
+              echo "CI passed."
+              echo "green=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            sleep 30
+          done
+
+          echo "Timed out waiting for CI, not merging."
+          exit 1
+
+      - name: Merge
+        if: steps.ci.outputs.green == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: gh pr merge "$PR_URL" --merge --delete-branch --match-head-commit "${{ github.event.pull_request.head.sha }}"
