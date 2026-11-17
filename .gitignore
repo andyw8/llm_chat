@@ -30,6 +30,9 @@
 
 /public/assets
 
+# JavaScript dependencies (herb-lint)
+/node_modules
+
 # Playwright MCP artifacts (screenshots, snapshots, traces)
 /.playwright-mcp/
 /tmp/playwright-mcp/

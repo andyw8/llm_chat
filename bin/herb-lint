@@ -1,5 +1,11 @@
-#!/usr/bin/env ruby
-require "rubygems"
-require "bundler/setup"
+#!/usr/bin/env sh
+# Herb's ERB linter, from the npm dev dependency in package.json.
+set -e
+cd "$(dirname "$0")/.."
 
-load Gem.bin_path("herb-embedded", "herb-lint-rb")
+if [ ! -x node_modules/.bin/herb-lint ]; then
+  echo "herb-lint isn't installed - run: npm install" >&2
+  exit 1
+fi
+
+exec node_modules/.bin/herb-lint "$@"
