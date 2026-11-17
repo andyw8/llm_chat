@@ -65,7 +65,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "ruby_llm", "~> 2.1"
+gem "ruby_llm", "~> 2.2"
 
 gem "poetry"
 gem "poetry-agent"
